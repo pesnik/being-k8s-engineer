@@ -1,0 +1,37 @@
+image:
+  registry: registry
+  repository: timescaledb
+  tag: latest-pg17
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: false
+  name: ""
+
+persistence:
+  enabled: true
+  existingClaim: "ai-ueba-pgdata-pvc"
+
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "500m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+
+service:
+  type: LoadBalancer
+  port: 5432
+  loadBalancerIP: "127.0.0.1"
+
+config:
+  POSTGRES_DB: "ueba"
+  POSTGRES_USER: "ueba"
+  POSTGRES_PASSWORD: "ueba"
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
